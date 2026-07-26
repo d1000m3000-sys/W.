@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="description" content="W - منصة مشاهدة الأفلام والمسلسلات">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="W">
+
+  <title>W - Watch</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app" id="app">
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-left">
+        <div class="logo">W <span>Watch</span></div>
+        <div class="nav-links">
+          <a class="nav-link active" onclick="setPage('home')">الرئيسية</a>
+          <a class="nav-link" onclick="setPage('movies')">أفلام</a>
+          <a class="nav-link" onclick="setPage('series')">مسلسلات</a>
+          <a class="nav-link" onclick="setPage('new')">الأحدث</a>
+          <a class="nav-link" onclick="setPage('list')">قائمتي</a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="nav-icon" onclick="toggleSearch()" aria-label="بحث">🔍</div>
+        <div class="nav-icon" aria-label="إشعارات">🔔</div>
+        <div class="user-avatar">W</div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+      <!-- Hero -->
+      <section class="hero" id="heroSection">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content animate-in">
+          <div class="hero-badge">🔥 #1 الأكثر مشاهدة هذا الأسبوع</div>
+          <h1 class="hero-title">المستحيل:<br>سقوط النظام</h1>
+          <div class="hero-meta">
+            <span class="match">98% تطابق</span>
+            <span>2024</span>
+            <span class="rating">⭐ 9.2</span>
+            <span class="hd-badge">4K HDR</span>
+            <span>2س 43د</span>
+          </div>
+          <p class="hero-desc">
+            إيثان هانت يواجه أخطر تهديد في مسيرته. يجب عليه وفريقه منع سلاح نووي من الوقوع في أيدي تنظيم سرّي يهدد استقرار العالم بأسره.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="openPlayer(0)">
+              <span>▶</span> شاهد الآن
+            </button>
+            <button class="btn btn-secondary" onclick="openModal(0)">
+              <span>ℹ</span> المزيد من المعلومات
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Top 10 -->
+        <div class="section-header">
+          <h2 class="section-title"><span class="icon">🏆</span> الأكثر مشاهدة</h2>
+          <span class="see-all">عرض الكل →</span>
+        </div>
+        <div class="carousel-container">
+          <div class="carousel" id="topCarousel"></div>
+        </div>
+
+        <!-- Trending -->
+        <div class="section-header">
+          <h2 class="section-title"><span class="icon">🔥</span> trending الآن</h2>
+          <span class="see-all">عرض الكل →</span>
+        </div>
+        <div class="carousel-container">
+          <button class="carousel-btn prev" onclick="scrollCarousel('trendCarousel', -1)" aria-label="السابق">‹</button>
+          <div class="carousel" id="trendCarousel"></div>
+          <button class="carousel-btn next" onclick="scrollCarousel('trendCarousel', 1)" aria-label="التالي">›</button>
+        </div>
+
+        <!-- Action -->
+        <div class="section-header">
+          <h2 class="section-title"><span class="icon">💥</span> أفلام الأكشن</h2>
+          <span class="see-all">عرض الكل →</span>
+        </div>
+        <div class="carousel-container">
+          <button class="carousel-btn prev" onclick="scrollCarousel('actionCarousel', -1)" aria-label="السابق">‹</button>
+          <div class="carousel" id="actionCarousel"></div>
+          <button class="carousel-btn next" onclick="scrollCarousel('actionCarousel', 1)" aria-label="التالي">›</button>
+        </div>
+
+        <!-- Drama -->
+        <div class="section-header">
+          <h2 class="section-title"><span class="icon">🎭</span> دراما مؤثرة</h2>
+          <span class="see-all">عرض الكل →</span>
+        </div>
+        <div class="carousel-container">
+          <button class="carousel-btn prev" onclick="scrollCarousel('dramaCarousel', -1)" aria-label="السابق">‹</button>
+          <div class="carousel" id="dramaCarousel"></div>
+          <button class="carousel-btn next" onclick="scrollCarousel('dramaCarousel', 1)" aria-label="التالي">›</button>
+        </div>
+
+        <!-- SciFi -->
+        <div class="section-header">
+          <h2 class="section-title"><span class="icon">🚀</span> خيال علمي</h2>
+          <span class="see-all">عرض الكل →</span>
+        </div>
+        <div class="carousel-container">
+          <button class="carousel-btn prev" onclick="scrollCarousel('scifiCarousel', -1)" aria-label="السابق">‹</button>
+          <div class="carousel" id="scifiCarousel"></div>
+          <button class="carousel-btn next" onclick="scrollCarousel('scifiCarousel', 1)" aria-label="التالي">›</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <button class="search-close" onclick="toggleSearch()" aria-label="إغلاق">✕</button>
+    <div class="search-box-large">
+      <input type="text" id="searchInput" placeholder="ابحث عن فيلم، مسلسل، ممثل..." oninput="doSearch()" autocomplete="off">
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+
+  <!-- Movie Modal -->
+  <div class="modal-overlay" id="movieModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()" aria-label="إغلاق">✕</button>
+      <div class="modal-hero" id="modalHero">
+        <div class="modal-play-btn" onclick="playFromModal()" aria-label="تشغيل">▶</div>
+      </div>
+      <div class="modal-body">
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-meta" id="modalMeta"></div>
+        <div class="modal-tags" id="modalTags"></div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-actions">
+          <button class="btn btn-accent" onclick="playFromModal()">
+            <span>▶</span> تشغيل
+          </button>
+          <button class="btn btn-secondary" onclick="toggleList()" id="listBtn">
+            <span>+</span> أضف للقائمة
+          </button>
+          <button class="btn btn-secondary">
+            <span>👍</span> أعجبني
+          </button>
+        </div>
+        <div class="modal-cast">
+          <h4>بطولة</h4>
+          <p id="modalCast"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Player -->
+  <div class="player-overlay" id="playerOverlay">
+    <div class="player-top">
+      <div class="player-title" id="playerTitle">عنوان الفيلم</div>
+      <button class="player-close" onclick="closePlayer()" aria-label="إغلاق">✕</button>
+    </div>
+    <div class="player-screen">
+      <div class="big-play" onclick="alert('🎬 في وضع العرض التوضيحي - لا يوجد فيديو حقيقي')">▶</div>
+    </div>
+    <div class="player-controls">
+      <button class="player-close" aria-label="تشغيل">▶</button>
+      <button class="player-close" aria-label="تخطي">⏭</button>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <span style="font-size:13px;color:#888">24:15 / 2:43:00</span>
+      <button class="player-close" aria-label="إعدادات">⚙</button>
+      <button class="player-close" aria-label="ملء الشاشة">⛶</button>
+    </div>
+  </div>
+
+  <!-- Install Banner -->
+  <div class="install-banner" id="installBanner">
+    <div class="install-content">
+      <span>📲 ثبّت تطبيق W على شاشتك الرئيسية!</span>
+      <button class="install-btn" onclick="installPWA()">تثبيت</button>
+      <button class="install-dismiss" onclick="dismissInstall()">✕</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
